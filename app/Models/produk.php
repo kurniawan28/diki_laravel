@@ -9,16 +9,18 @@ class produk extends Model
     // inisialisasi tabel produk
     protected $table = 'tb_produk';
 
-    // inisialisasi primary key di dalam tabel
-    protected $primarykey = 'id_produk';
+    // inisialisasi primary key di dalam tabel (PERBAIKI huruf besar/kecil)
+    protected $primaryKey = 'id_produk';
 
-    // inisialisasi data yang dapat kita isi
-    protected $fillable = ['nama_produk','harga','stok'];
+    // data yang boleh diisi
+    protected $fillable = [
+        'nama_produk',
+        'harga',
+        'stok',
+        'deskripsi_produk',
+        'kategori_id',
+    ];
 
-    // inisialisasi data yang tidak noleh kita isi
-    // protected $fillable = ['nama_produk','harga','stok'];
-    // inisialisasi data yang tidak boleh kita isi
+    // data yang tidak boleh diisi (opsional, bisa dihapus kalau sudah pakai $fillable)
     protected $guarded = ['id_produk'];
-    
 }
-

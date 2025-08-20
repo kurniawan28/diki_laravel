@@ -11,6 +11,9 @@
          <br>
          <b>Tipe Toko : </b> {{$data_toko['type']}}
 </div>
+    @if (session('message'))
+        <div class="alert alert-primary">{{session('message')}}</div>
+    @endif
 <div class="card"> 
      <div class="card-header">
           daftar produk
@@ -25,7 +28,7 @@
       <th scope="col">harga</th>
       <th scope="col">deskripsi_produk</th>
       <th scope="col">aksi</th>
-    </tr>
+    </tr> 
   </thead>
   <tbody>
     @foreach ($data_produk as $item)
@@ -36,6 +39,7 @@
       <td>{{$item->deskripsi_produk}}</td>
       <td><button type="button" class="btn btn-danger">hapus</button>
           <button type="button" class="btn btn-warning">edit</button>
+          <a href="/product/{{$item->id_produk}}" class="btn btn-info">detail</a>
         </td>
     </tr>
     @endforeach

@@ -23,3 +23,4 @@ Route::get('/product', [ProdukController::class, 'index']);// read data menampil
 
 Route::get('/product/create', [ProdukController::class, 'create']); // menampilkan halaman from data
 Route::post('/product', [ProdukController::class, 'store']); // untuk mengelolah data yang telah dikirim dari halaman from data
+Route::get('/product/{id}', [ProdukController::class, 'show']);
