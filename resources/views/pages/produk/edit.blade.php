@@ -2,15 +2,16 @@
 
 @section('konten')
     <div class="card">
-        <div class="card-header">tambah data Produk</div>
+        <div class="card-header">update data produk</div>
         <div class="card-body">
-            <form action="/product" method="POST">
-                @csrf {{-- Token untuk keamanan form --}}
+            <form action="/product/{{$data->id_produk}}" method="POST">
+                @method('PUT')
+                @csrf
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="mb-3">
-                            <label class="form-label">Nama Produk</label>
-                            <input type="text" name="nama_produk" class="form-control" value="{{old('nama_produk')}}">
+                            <label class="form-label">nama produk</label>
+                            <input type="text" name="nama_produk" class="form-control" value="{{  $data->nama_produk}}">
                             @error('nama_produk')
                             <div id="emailHelp" class="form-text text-danger">{{$message}}</div>
                             @enderror
@@ -19,7 +20,7 @@
                     <div class="col-sm-6">
                         <div class="mb-3">
                             <label class="form-label">Harga Produk</label>
-                            <input type="number" name="harga_produk" class="form-control" value="{{old('harga_produk')}}">
+                            <input type="number" name="harga_produk" class="form-control" value="{{ $data->harga}}">
                             @error('harga_produk')
                             <div id="emailHelp" class="form-text text-danger">{{$message}}</div>
                             @enderror
@@ -27,7 +28,7 @@
                     </div>
                     <div class="col-12">
                         <div class="form-floating">
-                            <textarea class="form-control" name="deskripsi" placeholder="Leave a comment here" style="height: 100px"></textarea>
+                            <textarea class="form-control" name="deskripsi" placeholder="Leave a comment here" style="height: 100px">{{ $data->deskripsi_produk}}</textarea>
                             <label >deskripsi Produk</label>
                             @error('deskripsi')
                             <div id="emailHelp" class="form-text text-danger">{{$message}}</div>
@@ -69,7 +70,7 @@
                         </div>
                     </div>
                     <div class="col-sm-12 mt-3 ">
-                        <button type="submit" class="btn btn-primary">tambah Data</button>
+                        <button type="submit" class="btn btn-primary">update Data</button>
                     </div>
                 </div>
             </form>

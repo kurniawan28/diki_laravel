@@ -23,4 +23,11 @@ Route::get('/product', [ProdukController::class, 'index']);// read data menampil
 
 Route::get('/product/create', [ProdukController::class, 'create']); // menampilkan halaman from data
 Route::post('/product', [ProdukController::class, 'store']); // untuk mengelolah data yang telah dikirim dari halaman from data
-Route::get('/product/{id}', [ProdukController::class, 'show']);
+Route::get('/product/{id}', [ProdukController::class, 'show']);// untuk menampilkan halaman detail data
+
+Route::get('/product/{id}/edit',[ProdukController::class,'edit']);
+Route::put('/product/{id}',[ProdukController::class,'update']);
+
+Route::delete('/product/{id}',[ProdukController::class,'destroy']); 
+
+

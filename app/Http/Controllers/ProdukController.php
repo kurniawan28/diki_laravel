@@ -8,13 +8,18 @@ use Illuminate\Support\Facades\DB;
 
 class ProdukController extends Controller
 {
-    public function index(){
+    public function index(request $request){
        $toko = [
            'nama_toko'=>'Makmur Jaya Abadi',
            'alamat'=>'sidoarjo, jawa timur',
            'type'=>'Ruko'
         ];
-        $produk  = produk::get(); // query untuk mengambil semua data yang berada di tb_produk
+
+         $search = $request->keyword;
+
+        $produk  = produk::when($search,function($query,$search){
+            return $query->where('nama_produk','like',"%{$search}%");
+        })->get(); // query untuk mengambil semua data yang berada di tb_produk
        // $queryBuilder = DB::table('tb_produk')->get(); //query untuk mengambil semua data yang berada
         return view('pages.produk.show',[
             'data_toko'=>$toko,
@@ -70,4 +75,41 @@ class ProdukController extends Controller
        ]);
     } 
 
+    public function edit($id){
+        // mengambilan 1 data spesifik dari id yang di kirimkan dari parameter
+        $data = produk::findOrFail($id);
+
+        return view('pages.produk.edit',[
+            'data'=>$data,
+        ]);
+    }
+
+    public function update($id,Request $request){
+        // validasi
+        $request->validate([
+          'nama_produk'=>'required|min:8|', // nama produk wajib diisi
+          'harga_produk'=>'required',
+          'deskripsi'=>'required',
+        ],[
+            'nama_produk.min'=>'nama produk minimal 8 karakter',
+            'nama_produk.required'=>'inputan nama produk wajib diisi',
+            'harga_produk.required'=>'inputan harga produk wajib diisi',
+            'deskripsi.required'=>'inputan deskripsi produk wajib diisi',
+
+        ]);
+
+        // query untuk simpan data yang telah kita update
+        produk::where('id_produk',$id)->update([
+             'nama_produk'=>$request->nama_produk,
+             'harga'=>$request->harga_produk,
+             'deskripsi_produk'=>$request->deskripsi,
+        ]);
+
+        return redirect('product')->with('message','data berhasil di edit');
+    }    
+
+    public function destroy($id){
+        produk::findOrFail($id)->delete();
+        return redirect('/product')->with('message','data berhasil di hapus');
+    }
 }
