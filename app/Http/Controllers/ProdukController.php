@@ -65,7 +65,7 @@ class ProdukController extends Controller
     public function show($id){
         // query atau perintah
         //elequent orm
-       $data = produk::findOrFail($id);
+       $data = produk::where('id_produk', $id)->firstOrFail();
        
        // query builder
        //DB::table('tb_produk')->where('id_produk',$id)->first0rFaill();
@@ -109,7 +109,8 @@ class ProdukController extends Controller
     }    
 
     public function destroy($id){
-        produk::findOrFail($id)->delete();
-        return redirect('/product')->with('message','data berhasil di hapus');
-    }
+    produk::findOrFail($id)->delete();
+    return redirect('/product')->with('message','data berhasil di hapus');
+}
+
 }

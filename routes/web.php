@@ -28,6 +28,6 @@ Route::get('/product/{id}', [ProdukController::class, 'show']);// untuk menampil
 Route::get('/product/{id}/edit',[ProdukController::class,'edit']);
 Route::put('/product/{id}',[ProdukController::class,'update']);
 
-Route::delete('/product/{id}',[ProdukController::class,'destroy']); 
+Route::delete('/product/{id}', [ProdukController::class, 'destroy'])->name('produk.destroy'); // hapus produk
 
 
